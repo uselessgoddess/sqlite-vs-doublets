@@ -1,11 +1,11 @@
 [package]
-name = "doulets-vs-sqlite"
+name = "sqlite-vs-doublets"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-doublets = { path = "../../LinksPlatform/Data.Doublets/rust" }
+doublets = { git = "https://github.com/linksplatform/Data.Doublets", branch = "rust_write.unwrap.optimized" }
 num-traits = "0.2.14"
-rand = "*"
+rand = "0.8.4"
 chrono = "0.4.19"
 cached = "0.26.2"
