@@ -13,6 +13,11 @@ use crate::db_context::{BlogPost, BlogPosts, DoubletsDbContext, POSTS, Propertie
 use crate::sequences::unicode::{CharToUnicode, StringToUnicode, UnicodeToChar, UnicodeToString};
 use crate::test_run::DoubletsTest;
 
+use mimalloc::MiMalloc;
+
+//#[global_allocator]
+//static ALLOCATOR: MiMalloc = mimalloc::MiMalloc;
+
 mod sequences;
 pub mod db_context;
 mod test_run;
@@ -48,7 +53,7 @@ fn mai456456n() {
     let instant = Instant::now();
 
     for _ in 0..10000 {
-        db.push_string(&contents[rand::thread_rng().gen_range(0..5)]);
+        db.push_string(contents[rand::thread_rng().gen_range(0..5)].to_string());
     }
 
     println!("{}", db.links.count());
@@ -130,7 +135,7 @@ fn __main() {
             .map(char::from)
             .collect();
 
-        let index = db.push_string(&s);
+        let index = db.push_string(s);
         //db.read_string(index);
     }
 
@@ -149,7 +154,7 @@ fn _main() {
     let mut to_strseq = StringToUnicode::new(to_unicode, sequence_marker);
 
     let string = "MAMA LOVE PAPA И МЕНЯ".to_string();
-    let str_link = to_strseq.convert(&mut links, &string);
+    let str_link = to_strseq.convert(&mut links, string);
 
     let to_char = UnicodeToChar::new(unicode_marker);
     let mut to_string = UnicodeToString::new(to_char, sequence_marker);

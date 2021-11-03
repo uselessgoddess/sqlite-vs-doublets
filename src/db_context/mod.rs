@@ -158,7 +158,7 @@ impl<T: LinkType, M: ResizeableMem> DoubletsDbContext<T, M> {
         self.links.delete(index);
     }
 
-    pub fn push_string(&mut self, string: &String) -> T {
+    pub fn push_string(&mut self, string: String) -> T {
         self.to_unicode.convert(&mut self.links, string)
     }
 
@@ -221,11 +221,11 @@ impl<T: LinkType, M: ResizeableMem> DoubletsDbContext<T, M> {
         let new = self.links.update(new, self.blog_post_marker, new);
         //let new = self.links.update(new, self.blog_post_marker, new);
 
-        let title_seq = self.push_string(&post.title);
+        let title_seq = self.push_string(post.title);
         //println!("title seq: {}", title_seq);
         property.set(&mut self.links, new, self.title_marker, title_seq);
 
-        let content_seq = self.push_string(&post.content);
+        let content_seq = self.push_string(post.content);
         property.set(&mut self.links, new, self.content_marker, content_seq);
 
         //property.set(&mut self.links, new, self.publication_time_marker, AddrToRaw::new().convert(T::from(post.date.as_nanos()).unwrap()));

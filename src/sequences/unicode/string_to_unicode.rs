@@ -18,8 +18,8 @@ impl<T: LinkType> StringToUnicode<T> {
     }
 
     // TODO: impl `Converter`
-    pub fn convert<L: ILinks<T>>(&mut self, links: &mut L, string: &String) -> T {
-        *self.map.entry(string.clone())
+    pub fn convert<L: ILinks<T>>(&mut self, links: &mut L, string: String) -> T {
+        *self.map.entry(string)
             .or_insert_with_key(|string| {
                 let seq: Vec<_> = string.chars()
                     .map(|c| self.to_unicode.convert(links, c))
